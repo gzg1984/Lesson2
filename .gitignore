@@ -1,0 +1,5 @@
+.*.un~
+Cartfile.resolved
+*~
+Carthage/
+

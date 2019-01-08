@@ -14,6 +14,8 @@
 		9E3D2AB521BD1B3000B4CB4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E3D2AB321BD1B3000B4CB4E /* LaunchScreen.storyboard */; };
 		9E3D2AC021BD1B3100B4CB4E /* Lesson2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D2ABF21BD1B3100B4CB4E /* Lesson2Tests.swift */; };
 		9E3D2ACB21BD1B3100B4CB4E /* Lesson2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D2ACA21BD1B3100B4CB4E /* Lesson2UITests.swift */; };
+		9EFF412021E4E51A00C955F1 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFF411F21E4E51A00C955F1 /* SwiftSocket.framework */; };
+		9EFF412321E4E62B00C955F1 /* MyTcpSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF412221E4E62B00C955F1 /* MyTcpSocketServer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		9E3D2AC621BD1B3100B4CB4E /* Lesson2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lesson2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3D2ACA21BD1B3100B4CB4E /* Lesson2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson2UITests.swift; sourceTree = "<group>"; };
 		9E3D2ACC21BD1B3100B4CB4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EFF411F21E4E51A00C955F1 /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSocket.framework; path = Carthage/Build/iOS/SwiftSocket.framework; sourceTree = "<group>"; };
+		9EFF412221E4E62B00C955F1 /* MyTcpSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTcpSocketServer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EFF412021E4E51A00C955F1 /* SwiftSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +86,7 @@
 				9E3D2ABE21BD1B3100B4CB4E /* Lesson2Tests */,
 				9E3D2AC921BD1B3100B4CB4E /* Lesson2UITests */,
 				9E3D2AA821BD1B2E00B4CB4E /* Products */,
+				9EFF411E21E4E51A00C955F1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +105,7 @@
 			children = (
 				9E3D2AAA21BD1B2E00B4CB4E /* AppDelegate.swift */,
 				9E3D2AAC21BD1B2E00B4CB4E /* ViewController.swift */,
+				9EFF412221E4E62B00C955F1 /* MyTcpSocketServer.swift */,
 				9E3D2AAE21BD1B2E00B4CB4E /* Main.storyboard */,
 				9E3D2AB121BD1B3000B4CB4E /* Assets.xcassets */,
 				9E3D2AB321BD1B3000B4CB4E /* LaunchScreen.storyboard */,
@@ -125,6 +132,14 @@
 			path = Lesson2UITests;
 			sourceTree = "<group>";
 		};
+		9EFF411E21E4E51A00C955F1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9EFF411F21E4E51A00C955F1 /* SwiftSocket.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,6 +150,7 @@
 				9E3D2AA321BD1B2E00B4CB4E /* Sources */,
 				9E3D2AA421BD1B2E00B4CB4E /* Frameworks */,
 				9E3D2AA521BD1B2E00B4CB4E /* Resources */,
+				9EFF412121E4E52D00C955F1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -251,12 +267,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9EFF412121E4E52D00C955F1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftSocket.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/Carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9E3D2AA321BD1B2E00B4CB4E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				9E3D2AAD21BD1B2E00B4CB4E /* ViewController.swift in Sources */,
+				9EFF412321E4E62B00C955F1 /* MyTcpSocketServer.swift in Sources */,
 				9E3D2AAB21BD1B2E00B4CB4E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -434,6 +472,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72C7JZ454D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Lesson2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +494,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72C7JZ454D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Lesson2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
