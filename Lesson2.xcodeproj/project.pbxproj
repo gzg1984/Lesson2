@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		9E3D2AAB21BD1B2E00B4CB4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D2AAA21BD1B2E00B4CB4E /* AppDelegate.swift */; };
 		9E3D2AAD21BD1B2E00B4CB4E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D2AAC21BD1B2E00B4CB4E /* ViewController.swift */; };
-		9E3D2AB021BD1B2E00B4CB4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E3D2AAE21BD1B2E00B4CB4E /* Main.storyboard */; };
 		9E3D2AB221BD1B3000B4CB4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E3D2AB121BD1B3000B4CB4E /* Assets.xcassets */; };
 		9E3D2AB521BD1B3000B4CB4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E3D2AB321BD1B3000B4CB4E /* LaunchScreen.storyboard */; };
 		9E3D2AC021BD1B3100B4CB4E /* Lesson2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D2ABF21BD1B3100B4CB4E /* Lesson2Tests.swift */; };
 		9E3D2ACB21BD1B3100B4CB4E /* Lesson2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D2ACA21BD1B3100B4CB4E /* Lesson2UITests.swift */; };
 		9EFF412021E4E51A00C955F1 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFF411F21E4E51A00C955F1 /* SwiftSocket.framework */; };
 		9EFF412321E4E62B00C955F1 /* MyTcpSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF412221E4E62B00C955F1 /* MyTcpSocketServer.swift */; };
+		9EFF412621E4EE1000C955F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EFF412521E4EE0F00C955F1 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +39,6 @@
 		9E3D2AA721BD1B2E00B4CB4E /* Lesson2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lesson2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3D2AAA21BD1B2E00B4CB4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E3D2AAC21BD1B2E00B4CB4E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9E3D2AAF21BD1B2E00B4CB4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E3D2AB121BD1B3000B4CB4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E3D2AB421BD1B3000B4CB4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E3D2AB621BD1B3000B4CB4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +50,7 @@
 		9E3D2ACC21BD1B3100B4CB4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EFF411F21E4E51A00C955F1 /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSocket.framework; path = Carthage/Build/iOS/SwiftSocket.framework; sourceTree = "<group>"; };
 		9EFF412221E4E62B00C955F1 /* MyTcpSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTcpSocketServer.swift; sourceTree = "<group>"; };
+		9EFF412521E4EE0F00C955F1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 				9E3D2AAA21BD1B2E00B4CB4E /* AppDelegate.swift */,
 				9E3D2AAC21BD1B2E00B4CB4E /* ViewController.swift */,
 				9EFF412221E4E62B00C955F1 /* MyTcpSocketServer.swift */,
-				9E3D2AAE21BD1B2E00B4CB4E /* Main.storyboard */,
+				9EFF412521E4EE0F00C955F1 /* Main.storyboard */,
 				9E3D2AB121BD1B3000B4CB4E /* Assets.xcassets */,
 				9E3D2AB321BD1B3000B4CB4E /* LaunchScreen.storyboard */,
 				9E3D2AB621BD1B3000B4CB4E /* Info.plist */,
@@ -247,7 +247,7 @@
 			files = (
 				9E3D2AB521BD1B3000B4CB4E /* LaunchScreen.storyboard in Resources */,
 				9E3D2AB221BD1B3000B4CB4E /* Assets.xcassets in Resources */,
-				9E3D2AB021BD1B2E00B4CB4E /* Main.storyboard in Resources */,
+				9EFF412621E4EE1000C955F1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,14 +331,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9E3D2AAE21BD1B2E00B4CB4E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9E3D2AAF21BD1B2E00B4CB4E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9E3D2AB321BD1B3000B4CB4E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

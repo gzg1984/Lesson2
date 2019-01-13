@@ -9,73 +9,59 @@
 import UIKit
 import SwiftSocket
 
+//服务器端口
+var StaticServerPort:Int32 = 8888
+var StaticServerIP:String = "192.168.0.119"
+
 
 var Teststr = "Hello, playground"
 
 class ViewController: UIViewController {
-    override func loadView() {
-        let view = UIView()
-        view.backgroundColor = .white
-        
-        let label = UILabel()
-        label.frame = CGRect(x: 150, y: 200, width: 200, height: 20)
-        label.text = Teststr
-        label.textColor = .black
-        
-        view.addSubview(label)
-        self.view = view
-
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
     
-    
-    //消息输入框
-    @IBOutlet weak var textFiled: UITextField!
-    //消息输出列表
-    @IBOutlet weak var textView: UITextView!
-    
-    //socket服务端封装类对象
-    var socketServer:MyTcpSocketServer?
-    //socket客户端类对象
-    var socketClient:TCPClient?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        //启动服务器
-        socketServer = MyTcpSocketServer()
-        socketServer!.start()
-        
-        //初始化客户端，并连接服务器
-        processClientSocket()
-    }
-    
-    //初始化客户端，并连接服务器
+    @IBOutlet weak var ConnectionMsg: UITextView!
+    /*Connect to server */
     func processClientSocket(){
-        socketClient=TCPClient(address: "localhost", port: 8080)
+        socketClient=TCPClient(address: StaticServerIP, port: StaticServerPort)
         
         DispatchQueue.global(qos: .background).async {
             //用于读取并解析服务端发来的消息
-            func readmsg()->[String:Any]?{
+          //  func readmsg()->[String:Any]?{
                 //read 4 byte int as type
-                if let data=self.socketClient!.read(4){
-                    if data.count==4{
-                        let ndata=NSData(bytes: data, length: data.count)
-                        var len:Int32=0
-                        ndata.getBytes(&len, length: data.count)
-                        if let buff=self.socketClient!.read(Int(len)){
-                            let msgd = Data(bytes: buff, count: buff.count)
-                            if let msgi = try? JSONSerialization.jsonObject(with: msgd,
-                                                                            options: .mutableContainers) {
-                                return msgi as? [String:Any]
-                            }
-                        }
-                    }
+              func readmsg()->String?{
+
+                
+                if let data=self.socketClient!.read(100){
+                        return String(bytes: data, encoding: .utf8)!
+                    
+                    
+                    
+                    /*self.textView.text = self.textView.text
+                    //     + "\n" */
+
+                    /*
+                    let msgi=["cmd":"msg","content":data] as [String : Any]
+                    return msgi as? [String:Any]
+ */
+                    /*
+                     
+                     if data.count==4{
+                     let ndata=NSData(bytes: data, length: data.count)
+                     var len:Int32=0
+                     ndata.getBytes(&len, length: data.count)
+                     if let buff=self.socketClient!.read(Int(len)){
+                     let msgd = Data(bytes: buff, count: buff.count)
+                     if let msgi = try? JSONSerialization.jsonObject(with: msgd,
+                     options: .mutableContainers) {
+                     return msgi as? [String:Any]
+                     }
+                     }
+                     }
+                     */
                 }
                 return nil
             }
-            
+            while true {
+                Thread.sleep(forTimeInterval: 1.0)
             //连接服务器
             switch self.socketClient!.connect(timeout: 5) {
             case .success:
@@ -107,8 +93,33 @@ class ViewController: UIViewController {
                     })
                 }
             }
+            }
+
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //启动服务器
+        //socketServer = MyTcpSocketServer()
+        //socketServer!.start()
+        
+        //初始化客户端，并连接服务器
+        processClientSocket()
+    }
+    
+    @IBOutlet weak var textFiled: UITextField!
+    @IBOutlet weak var textView: UITextView!
+    
+    //socket服务端封装类对象
+    var socketServer:MyTcpSocketServer?
+    //socket客户端类对象
+    var socketClient:TCPClient?
+    
+    
+    
+    
     
     //“发送消息”按钮点击
     @IBAction func sendMsg(_ sender: AnyObject) {
@@ -129,19 +140,29 @@ class ViewController: UIViewController {
     }
     
     //处理服务器返回的消息
-    func processMessage(msg:[String:Any]){
+    //func processMessage(msg:[String:Any]){
+    func processMessage(msg:String){
+
+        /*
         let cmd:String=msg["cmd"] as! String
         switch(cmd){
         case "msg":
-            self.textView.text = self.textView.text +
-                (msg["from"] as! String) + ": " + (msg["content"] as! String) + "\n"
+ */
+            self.textView.text = self.textView.text + msg
+        let nsra:NSRange = NSMakeRange((self.textView.text.lengthOfBytes(using: String.Encoding.utf8))-1, 1)
+        self.textView.scrollRangeToVisible(nsra)
+
+        //        (msg["from"] as! String) + ": " + (msg["content"] as! String) + "\n"
+        /*
         default:
             print(msg)
-        }
+ */
+       // }
     }
     
     //弹出消息框
     func alert(msg:String,after:()->(Void)){
+        /*
         let alertController = UIAlertController(title: "",
                                                 message: msg,
                                                 preferredStyle: .alert)
@@ -151,26 +172,14 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
             alertController.dismiss(animated: false, completion: nil)
         }
+ */
+        self.ConnectionMsg.text = self.ConnectionMsg.text + msg
+        let nsra:NSRange = NSMakeRange((self.ConnectionMsg.text.lengthOfBytes(using: String.Encoding.utf8))-1, 1)
+        self.ConnectionMsg.scrollRangeToVisible(nsra)
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-}
-
-
-
-class MyViewController : UIViewController {
-    override func loadView() {
-        let view = UIView()
-        view.backgroundColor = .white
-        
-        let label = UILabel()
-        label.frame = CGRect(x: 150, y: 200, width: 200, height: 20)
-        label.text = "Hello World!"
-        label.textColor = .black
-        
-        view.addSubview(label)
-        self.view = view
     }
 }
