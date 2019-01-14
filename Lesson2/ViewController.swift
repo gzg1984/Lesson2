@@ -13,9 +13,6 @@ import SwiftSocket
 var StaticServerPort:Int32 = 8888
 var StaticServerIP:String = "192.168.0.119"
 
-
-var Teststr = "Hello, playground"
-
 class ViewController: UIViewController {
     
     @IBOutlet weak var ConnectionMsg: UITextView!
@@ -25,23 +22,23 @@ class ViewController: UIViewController {
         
         DispatchQueue.global(qos: .background).async {
             //用于读取并解析服务端发来的消息
-          //  func readmsg()->[String:Any]?{
-                //read 4 byte int as type
-              func readmsg()->String?{
-
+            //  func readmsg()->[String:Any]?{
+            //read 4 byte int as type
+            func readmsg()->String?{
                 
-                if let data=self.socketClient!.read(100){
-                        return String(bytes: data, encoding: .utf8)!
+                
+                if let data=self.socketClient!.read(100,timeout: 5){
+                    return String(bytes: data, encoding: .utf8)!
                     
                     
                     
                     /*self.textView.text = self.textView.text
-                    //     + "\n" */
-
+                     //     + "\n" */
+                    
                     /*
-                    let msgi=["cmd":"msg","content":data] as [String : Any]
-                    return msgi as? [String:Any]
- */
+                     let msgi=["cmd":"msg","content":data] as [String : Any]
+                     return msgi as? [String:Any]
+                     */
                     /*
                      
                      if data.count==4{
@@ -62,39 +59,40 @@ class ViewController: UIViewController {
             }
             while true {
                 Thread.sleep(forTimeInterval: 1.0)
-            //连接服务器
-            switch self.socketClient!.connect(timeout: 5) {
-            case .success:
-                DispatchQueue.main.async {
-                    self.alert(msg: "connect success", after: {
-                    })
-                }
-                
-                //发送用户名给服务器（这里使用随机生成的）
-                let msgtosend=["cmd":"nickname","nickname":"游客\(Int(arc4random()%1000))"]
-                self.sendMessage(msgtosend: msgtosend)
-                
-                //不断接收服务器发来的消息
-                while true{
-                    if let msg=readmsg(){
-                        DispatchQueue.main.async {
-                            self.processMessage(msg: msg)
+                //连接服务器
+                self.alert(msg: "Trying To Connect to "+StaticServerIP + "\n", after: {})
+
+                switch self.socketClient!.connect(timeout: 5) {
+                case .success:
+                    DispatchQueue.main.async {
+                        self.alert(msg: "connect success \n", after: {
+                        })
+                    }
+                    
+                    //发送用户名给服务器（这里使用随机生成的）
+                    let msgtosend=["cmd":"nickname","nickname":"游客\(Int(arc4random()%1000))"]
+                    self.sendMessage(msgtosend: msgtosend)
+                    
+                    //不断接收服务器发来的消息
+                    while true{
+                        if let msg=readmsg(){
+                            DispatchQueue.main.async {
+                                self.processMessage(msg: msg)
+                            }
+                        }else{
+                            DispatchQueue.main.async {
+                                self.alert(msg: "Read Message Error\n",after: {})
+                            }
+                            break
                         }
-                    }else{
-                        DispatchQueue.main.async {
-                            //self.disconnect()
-                        }
-                        //break
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.alert(msg: error.localizedDescription,after: {})
                     }
                 }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.alert(msg: error.localizedDescription,after: {
-                    })
-                }
             }
-            }
-
+            
         }
     }
     
@@ -142,41 +140,41 @@ class ViewController: UIViewController {
     //处理服务器返回的消息
     //func processMessage(msg:[String:Any]){
     func processMessage(msg:String){
-
+        
         /*
-        let cmd:String=msg["cmd"] as! String
-        switch(cmd){
-        case "msg":
- */
-            self.textView.text = self.textView.text + msg
+         let cmd:String=msg["cmd"] as! String
+         switch(cmd){
+         case "msg":
+         */
+        self.textView.text = self.textView.text + msg
         let nsra:NSRange = NSMakeRange((self.textView.text.lengthOfBytes(using: String.Encoding.utf8))-1, 1)
         self.textView.scrollRangeToVisible(nsra)
-
+        
         //        (msg["from"] as! String) + ": " + (msg["content"] as! String) + "\n"
         /*
-        default:
-            print(msg)
- */
-       // }
+         default:
+         print(msg)
+         */
+        // }
     }
     
     //弹出消息框
     func alert(msg:String,after:()->(Void)){
         /*
-        let alertController = UIAlertController(title: "",
-                                                message: msg,
-                                                preferredStyle: .alert)
-        self.present(alertController, animated: true, completion: nil)
-        
-        //1.5秒后自动消失
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
-            alertController.dismiss(animated: false, completion: nil)
-        }
- */
-        self.ConnectionMsg.text = self.ConnectionMsg.text + msg
+         let alertController = UIAlertController(title: "",
+         message: msg,
+         preferredStyle: .alert)
+         self.present(alertController, animated: true, completion: nil)
+         
+         //1.5秒后自动消失
+         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+         alertController.dismiss(animated: false, completion: nil)
+         }
+         */
+        self.ConnectionMsg.text = self.ConnectionMsg.text + msg + "\n"
         let nsra:NSRange = NSMakeRange((self.ConnectionMsg.text.lengthOfBytes(using: String.Encoding.utf8))-1, 1)
         self.ConnectionMsg.scrollRangeToVisible(nsra)
-
+        
     }
     
     override func didReceiveMemoryWarning() {
